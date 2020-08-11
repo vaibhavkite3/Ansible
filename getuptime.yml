@@ -1,6 +1,6 @@
 ---
 - name: Get server uptime
-hosts: all
+hosts: '{{ HOSTS }}'
 
 tasks:
 - name: Get uptime first
