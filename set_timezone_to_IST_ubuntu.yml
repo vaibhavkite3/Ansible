@@ -1,0 +1,11 @@
+---
+- hosts: "{{ HOSTS }}"
+  remote-user: root
+  gather_facts: False
+  tasks:
+    - name : set timezone to IST - Asia/Kolkata
+      notify:
+        - update timezone
+  handlers:
+    - name: update timezone
+      command: timedatectl set-timezone Asia/Kolkata 
