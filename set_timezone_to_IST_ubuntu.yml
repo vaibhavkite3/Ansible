@@ -6,9 +6,5 @@
 
   tasks:
     - name : set timezone to IST - Asia/Kolkata
-      notify:
-        - update timezone
-        
-  handlers:
-    - name: update timezone
-      command: timedatectl set-timezone Asia/Kolkata 
+      command: timedatectl set-timezone Asia/Kolkata
+
