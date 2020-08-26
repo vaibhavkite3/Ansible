@@ -4,10 +4,12 @@
   remote_user: root
 
   tasks:
-  - name: check mongodb is running
-    service:
-      name: mongod
-      state: started
+  - name: check mongod is installed
+    shell: command -v mongod >/dev/null 2>&1
+    register: is_mongod_exist
+    ignore_errors: yes
+
+  - debug: msg="{{ is_mongod_exist.rc }}"
 
   - name: remove existing cron entry for gdrive upload
     shell: crontab -u root -l | grep -v '/root/scripts/gdrive_upload_sync'  | crontab -u root -

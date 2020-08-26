@@ -4,10 +4,12 @@
   remote_user: root
 
   tasks:
-  - name: check mysql is running
-    service:
-      name: mysql
-      state: started
+  - name: check mysqld is installed
+    shell: command -v mysqld >/dev/null 2>&1
+    register: is_mysqld_exist
+    ignore_errors: yes
+
+  - debug: msg="{{ is_mysqld_exist.rc }}"
 
   - name: remove existing cron entry for gdrive upload
     shell: crontab -u root -l | grep -v '/root/scripts/gdrive_upload_sync'  | crontab -u root -
