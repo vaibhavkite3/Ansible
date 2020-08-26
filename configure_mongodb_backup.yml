@@ -4,6 +4,11 @@
   remote_user: root
 
   tasks:
+  - name: check mongodb is running
+    service:
+      name: mongodb
+      state: started
+      
   - name: remove existing cron entry for gdrive upload
     command: crontab -u root -l | grep -v '/root/scripts/gdrive_upload_sync'  | crontab -u root -
     
