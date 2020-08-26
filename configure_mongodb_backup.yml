@@ -1,0 +1,15 @@
+---
+- name: configure the mongodb backup script with API
+  hosts: "{{ HOSTS }}"
+  remote_user: root
+
+  tasks:
+    - name: remove existing cron entry for gdrive upload
+      command: crontab -u root -l | grep -v '/root/scripts/gdrive_upload_sync'  | crontab -u root -
+    
+    - name : download the mongodb backup script from DO spaces
+      get_url:
+        url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/mongodb-backup.sh
+        dest: /root/scripts/mongodb-backup.sh
+        mode: '0644'
+      
