@@ -1,0 +1,20 @@
+---
+- name: configure the mysql backup script with API
+  hosts: "{{ HOSTS }}"
+  remote_user: root
+
+  tasks:
+  - name: check mysql is running
+    service:
+      name: mysql
+      state: started
+
+  - name: remove existing cron entry for gdrive upload
+    shell: crontab -u root -l | grep -v '/root/scripts/gdrive_upload_sync'  | crontab -u root -
+    
+  - name : download the mysql backup script from DO spaces
+    get_url:
+      url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/mysql-backup.sh
+      dest: /root/scripts/mysql-backup.sh
+      mode: '0644'
+      
