@@ -8,3 +8,8 @@
     - name : set timezone to IST - Asia/Kolkata
       command: timedatectl set-timezone Asia/Kolkata
 
+    - name: Restart the CRON service
+      service:
+        name: cron
+        state: restarted
+
