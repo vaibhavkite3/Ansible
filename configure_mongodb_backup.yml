@@ -13,10 +13,20 @@
 
   - name: remove existing cron entry for gdrive upload
     shell: crontab -u root -l | grep -v '/root/scripts/gdrive_upload_sync'  | crontab -u root -
+
+  - name: remove existing cron entry for mongodb backup
+    shell: crontab -u root -l | grep -v '/root/scripts/mongodb-backup.sh'  | crontab -u root -
     
   - name : download the mongodb backup script from DO spaces
     get_url:
       url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/mongodb-backup.sh
       dest: /root/scripts/mongodb-backup.sh
       mode: '0644'
-      
+
+  - name : adding a crontab for above script to execute at specific hour and random minute in night
+    cron: 
+      name: "### MongoDB Backup and Uploading"
+      minute: {{ 60 | random(step=5) }}
+      hour: "3"
+      job: "/bin/bash /root/scripts/mongodb-backup.sh"
+
