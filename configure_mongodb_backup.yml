@@ -26,7 +26,7 @@
   - name : adding a crontab for above script to execute at specific hour and random minute in night
     cron: 
       name: "### MongoDB Backup and Uploading"
-      minute: {{ 60 | random(step=5) }}
+      minute: "{{ 60 | random(step=5) }}"
       hour: "3"
       job: "/bin/bash /root/scripts/mongodb-backup.sh"
 
