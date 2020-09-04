@@ -9,12 +9,17 @@
 
   - name: get the mongo db query to execute
     get_url:
-      url: https://ssstg.mkcl.org/files/"{{ QUERY_FILE_NAME }}"
-      dest: /tmp/"{{ QUERY_FILE_NAME }}"
+      url: https://ssstg.mkcl.org/files/{{ QUERY_FILE_NAME }}
+      dest: /tmp/{{ QUERY_FILE_NAME }}
       mode: 0644
 
   - name: execute the query
-    shell: mongo -u "{{ DB_USERNAME }}" -p'"{{ DB_PASSWORD }}"' --authenticationDatabase "{{ DB_NAME }}" </tmp/"{{ QUERY_FILE_NAME }}"
+    shell: mongo -u {{ DB_USERNAME }} -p'{{ DB_PASSWORD }}' --authenticationDatabase {{ DB_NAME }} </tmp/{{ QUERY_FILE_NAME }}
+
+  - name: remove temp query file
+    file:
+      path: /tmp/{{ QUERY_FILE_NAME }}
+      state: absent
 
       
             
