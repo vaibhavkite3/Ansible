@@ -5,7 +5,7 @@
 
   tasks:
   - name: run a backup script to take MongoDB backup
-    command: bash /root/scripts/mongodb_backup.sh
+    command: bash /root/scripts/mongodb-backup.sh
 
   - name: get the mongo db query to execute
     get_url:
