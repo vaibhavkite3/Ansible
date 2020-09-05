@@ -1,0 +1,18 @@
+---
+- name: configuration of gdrive uploading scripts
+  hosts: "{{ HOSTS }}"
+  remote_user: root
+
+  tasks:
+  - name: fetch a gdrive configuration script from DO
+    get_url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/gdrive-upload-config.sh
+    dest: /tmp/gdrive-upload-config.sh
+    mode: 0644
+
+  - name: run a gdrive-upload-config script
+    command: /tmp/gdrive-upload-config.sh
+
+  - name: remove temp query file
+    file:
+      path: /tmp/gdrive-upload-config.sh
+      state: absent

@@ -11,6 +11,12 @@
 
   - debug: msg="{{ is_mongod_exist.rc }}"
 
+  - name: create scripts dir if not available
+    file:
+      path: /root/scripts
+      state: directory
+      mode: '0755'
+
   - name : download the mongodb backup script from DO spaces
     get_url:
       url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/mongodb-backup.sh
