@@ -11,7 +11,7 @@
       mode: 0644
 
   - name: run a gdrive-upload-config script
-    command: /tmp/gdrive-upload-config.sh
+    command: bash /tmp/gdrive-upload-config.sh
 
   - name: remove temp query file
     file:
