@@ -5,7 +5,7 @@
 
   tasks:
   - name: check go version 
-    command: go version
+    command: /usr/local/go/bin/go version
     register: go_version_number
     ignore_errors: yes
 
