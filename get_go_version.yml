@@ -5,10 +5,9 @@
 
   tasks:
   - name: check go version 
-    shell: go version
+    command: go version
     register: go_version_number
     ignore_errors: yes
 
   - debug: msg="{{ go_version_number }}"
 
-  
