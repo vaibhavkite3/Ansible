@@ -1,0 +1,14 @@
+---
+- name: script to get GO version from server
+  hosts: "{{ HOSTS }}"
+  remote_user: root
+
+  tasks:
+  - name: check go version 
+    shell: go version
+    register: go_version_number
+    ignore_errors: yes
+
+  - debug: msg="{{ go_version_number }}"
+
+  
