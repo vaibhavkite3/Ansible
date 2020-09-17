@@ -9,5 +9,5 @@
     register: go_version_number
     ignore_errors: yes
 
-  - debug: msg="{{ go_version_number }}"
+  - debug: msg="{{ go_version_number.stdout }}"
 
