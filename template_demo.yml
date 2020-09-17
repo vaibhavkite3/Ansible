@@ -3,12 +3,12 @@
   hosts: HOSTS
   remote_user: root
 
-  - tasks:
-    - name: add file with template
-      template:
-        src: myfile.txt.j2
-        dest: /tmp/myfile.txt
-        owner: root
-        group: root
-        mode: '0600'
+  tasks:
+  - name: add file with template
+    template:
+      src: myfile.txt.j2
+      dest: /tmp/myfile.txt
+      owner: root
+      group: root
+      mode: '0600'
 
