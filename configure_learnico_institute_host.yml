@@ -1,0 +1,16 @@
+---
+- name: configure the learnico project institute host
+  hosts: "{{ HOSTS }}"
+  remote_user: root
+  
+  tasks:
+   - name : set timezone to IST - Asia/Kolkata
+      command: timedatectl set-timezone Asia/Kolkata
+
+    - name: Restart the CRON service
+      service:
+        name: cron
+        state: restarted
+
+  - name: configure the NGINX with SSL and template from script
+     
