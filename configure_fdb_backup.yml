@@ -12,7 +12,7 @@
 
   - name : download the fdb backup script from DO spaces
     get_url:
-      url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/fdb-backup.sh
+      url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/fdb-backup-{{ DATACENTER }}.sh
       dest: /root/scripts/fdb-backup.sh
       mode: '0644'
 

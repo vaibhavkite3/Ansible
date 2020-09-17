@@ -19,7 +19,7 @@
     
   - name: download the mysql backup script from DO spaces
     get_url:
-      url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/mysql-mydumper-backup.sh
+      url: https://mkcl.sgp1.digitaloceanspaces.com/scripts/mysql-mydumper-backup-{{DATACENTER}}.sh
       dest: /root/scripts/mysql-mydumper-backup.sh
       mode: '0644'
   
