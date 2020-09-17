@@ -1,6 +1,6 @@
 ---
 - name: this is template demo for myfile.txt
-  hosts: HOSTS
+  hosts: "{{ HOSTS }}"
   remote_user: root
 
   tasks:
