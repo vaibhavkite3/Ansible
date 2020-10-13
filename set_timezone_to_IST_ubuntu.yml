@@ -1,15 +1,16 @@
 ---
 - name : Set Timezone in Ubuntu OS
   hosts: "{{ HOSTS }}"
-  remote_user: root
   gather_facts: False
 
   tasks:
     - name : set timezone to IST - Asia/Kolkata
       command: timedatectl set-timezone Asia/Kolkata
+      become: yes
 
     - name: Restart the CRON service
       service:
         name: cron
         state: restarted
+      become: yes
 
