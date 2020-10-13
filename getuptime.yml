@@ -1,6 +1,5 @@
 ---
 - hosts: "{{ HOSTS }}"
-  remote_user: root
 
   tasks:
     - name: get hostname
