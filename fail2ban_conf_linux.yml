@@ -1,0 +1,37 @@
+---
+- hosts: "{{ HOSTS }}"
+
+  tasks:
+    - name: Install the package if not available
+      package:
+        name: fail2ban
+        state: present
+      become: yes
+
+    - name: configure the fail2ban by adding local jail file (setting file) for our purpose.
+      blockinfile:
+        path: /etc/fail2ban/jail.local
+        owner: root
+        group: root
+        mode: '0644'
+        create: yes
+        block: |
+          [sshd]
+          enabled = true
+          port = 22
+          filter = sshd
+          logpath = /var/log/auth.log
+          maxretry = 3
+      become: yes
+
+    - name: enable the fail2ban service
+      service:
+        name: fail2ban
+        enabled: yes
+      become: yes
+
+    - name: restart the fail2ban service
+      service:
+        name: fail2ban
+        state: restarted
+      become: yes
