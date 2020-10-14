@@ -1,0 +1,53 @@
+---
+- hosts: "{{ HOSTS }}"
+  become: true
+
+  tasks:
+    - name: create a user with username from variable
+      user:
+        name: "{{ USERNAME }}"
+        shell: /bin/bash
+
+    - name: add user to SUDO group
+      user:
+        name: "{{ USERNAME }}"
+        group: sudo
+        append: yes
+
+        
+    - name: add the user to sudoes file for no password
+      blockinfile:
+       path: "/etc/sudoers"
+       block: |
+         {{ USERNAME }}  ALL=(ALL)  NOPASSWD: ALL
+
+    - name: create .ssh directory in user home
+      file:
+        path: /home/{{ USERNAME }}/.ssh
+        state: directory
+        owner: "{{ USERNAME }}"
+        group: "{{ USERNAME }}"
+        mode: '0700'
+    
+    - name: Deploy SSH Key
+      blockinline:
+        path: /home/{{ USERNAME }}/.ssh/authorized_keys
+        owner: "{{ USERNAME }}"
+        group: "{{ USERNAME }}"
+        mode: '0600'
+        create: yes
+        block: |
+          {{ PPK }}
+
+    - name: Disable Password Authentication
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: "PasswordAuthentication no"
+        state: present
+        backup: yes
+
+    - name: restart the ssh service
+      service:
+        name: ssh
+        state: restarted
