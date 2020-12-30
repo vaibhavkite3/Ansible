@@ -1,5 +1,6 @@
 ---
 - hosts: "{{ HOSTS }}"
+  become: yes
 
   tasks:
     - name: get hostname
@@ -12,7 +13,12 @@
       changed_when: False
       register: uptime
 
+    - name: get date
+      shell: /bin/date
+      register: datetime
+
     - debug: var={{ item }}
       with_items:
         - hostname.stdout
         - uptime.stdout
+        - datetime.stdout
